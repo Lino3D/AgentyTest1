@@ -4,14 +4,25 @@ import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;
 
-public class MessageConsumingAgent extends Agent
+public class MessageConsumingAgent extends BaseAgent
 {
     private boolean isFree = false;
+    @Override
+    protected void StartTask()
+    {
+        
+    }
+
+
+
+
+
+
     //Override
     protected void setup()
     {
+        super.setup();
         Behaviour mainBehaviour = new OneShotBehaviour(this)
-
         {
             //Override
             public void action()

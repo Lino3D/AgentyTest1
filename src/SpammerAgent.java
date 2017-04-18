@@ -1,18 +1,40 @@
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
+import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;
 
 /**
  * Created by Jakub on 09.03.2017.
  */
-public class SpammerAgent extends Agent
+public class SpammerAgent extends BaseAgent
 {
+    Behaviour SpamMessage;
+    @Override
+    protected void StartTask()
+    {
+        // Startujemy Cyclica do spamowania wiadomosci
+        addBehaviour(SpamMessage);
+    }
+
+
+
+
+
+
+
     private boolean isFree = false;
     //Override
     protected void setup()
     {
+        super.setup();
+        SpamMessage = new CyclicBehaviour() {
+            @Override
+            public void action() {
+                // Spamujemy sobie
+            }
+        };
         Behaviour mainBehaviour = new OneShotBehaviour(this)
 
         {
