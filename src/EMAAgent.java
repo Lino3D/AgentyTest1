@@ -24,7 +24,12 @@ public class EMAAgent  extends Agent{
         Behaviour StartExperiment = new OneShotBehaviour() {
             @Override
             public void action() {
-                ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                ACLMessage msg = new ACLMessage(ACLMessage.CONFIRM);
                 for(Address x : Addresses)
                 {
                     msg = AddReceiver(msg,x);
@@ -33,8 +38,12 @@ public class EMAAgent  extends Agent{
                 msg.setOntology("Weather-Forecast");
                 msg.setContent("Start");
                 msg.hashCode();
+                // TODO: Wykoentowac pozniej
+                msg.addReceiver(new AID("Bob",AID.ISLOCALNAME));
+                send(msg);
             }
         };
+        addBehaviour(StartExperiment);
     }
 
     private ACLMessage AddReceiver(ACLMessage msg, Address AgentAddress)

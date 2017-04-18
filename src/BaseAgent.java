@@ -20,9 +20,8 @@ public class BaseAgent  extends Agent{
                 if(msg!=null) {
                     switch(msg.getPerformative())
                     {
-                        default:
-                        {
-                            if( msg.getContent() == "Start")
+                        case ACLMessage.CONFIRM: {
+                            //if( msg.getContent() == "Start")
                             {
                                 // TODO: Sprawdzanie, czy juz wczensiej nie bylo wystartowen
                                 // ALe do tego bedziemy potrzebowac TestStarted dawac na false, jak sie zakonczy
@@ -31,6 +30,10 @@ public class BaseAgent  extends Agent{
                                 System.out.println("Startuje swoje zadanie! " + getAID());
                                 StartTask();
                             }
+                        }
+                        default:
+                        {
+
                             break;
 
                         }

@@ -12,11 +12,13 @@ import java.util.Random;
 public class SpammerAgent extends BaseAgent
 {
     Behaviour SpamMessage;
+    Behaviour mainBehaviour;
     @Override
     protected void StartTask()
     {
         // Startujemy Cyclica do spamowania wiadomosci
-        addBehaviour(SpamMessage);
+    //    addBehaviour(SpamMessage);
+        addBehaviour(mainBehaviour);
     }
 
 
@@ -29,15 +31,14 @@ public class SpammerAgent extends BaseAgent
     //Override
     protected void setup()
     {
-//        super.setup();
+      super.setup();
 //        SpamMessage = new CyclicBehaviour() {
 //            @Override
 //            public void action() {
 //                // Spamujemy sobie
 //            }
 //        };
-        Behaviour mainBehaviour = new CyclicBehaviour(this)
-
+        mainBehaviour = new CyclicBehaviour(this)
         {
             //Override
             public void action()
@@ -56,7 +57,7 @@ public class SpammerAgent extends BaseAgent
                 }
             }
                     };
-                    addBehaviour(mainBehaviour);
+                  //  addBehaviour(mainBehaviour);
             }
     private ACLMessage[] createMessages(int messageNumber)
         {
