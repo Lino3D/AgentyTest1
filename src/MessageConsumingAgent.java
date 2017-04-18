@@ -10,7 +10,7 @@ public class MessageConsumingAgent extends BaseAgent
     @Override
     protected void StartTask()
     {
-        
+
     }
 
 

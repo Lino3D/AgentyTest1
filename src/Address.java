@@ -4,4 +4,9 @@
 public class Address {
     public String ComputerAdress;
     public String AgentAdress;
+
+    public Address(String computerAdress, String agentAdress) {
+        ComputerAdress = computerAdress;
+        AgentAdress = agentAdress;
+    }
 }

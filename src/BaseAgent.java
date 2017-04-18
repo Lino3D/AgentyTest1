@@ -11,12 +11,32 @@ import jade.lang.acl.ACLMessage;
  */
 public class BaseAgent  extends Agent{
     Behaviour MainLoop;
+    boolean TestStarted = false;
     protected void setup() {
-        MainLoop = new TickerBehaviour(this,300) {
+        MainLoop = new TickerBehaviour(this,3000) {
             @Override
             protected void onTick() {
-                // Czekamy wiadomosc od naszego EMA, jak dostaniemy, to robimy
-                StartTask();
+                ACLMessage msg = receive();
+                if(msg!=null) {
+                    switch(msg.getPerformative())
+                    {
+                        default:
+                        {
+                            if( msg.getContent() == "Start")
+                            {
+                                // TODO: Sprawdzanie, czy juz wczensiej nie bylo wystartowen
+                                // ALe do tego bedziemy potrzebowac TestStarted dawac na false, jak sie zakonczy
+                                // Czekamy wiadomosc od naszego EMA, jak dostaniemy, to robimy
+                                TestStarted = true;
+                                System.out.println("Startuje swoje zadanie! " + getAID());
+                                StartTask();
+                            }
+                            break;
+
+                        }
+                    }
+
+                }
             }
         };
         addBehaviour(MainLoop);
