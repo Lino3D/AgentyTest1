@@ -27,19 +27,24 @@ public class Manager extends Agent {
                 if(response!=null)
                 {
                     System.out.println("GGood jooob");
+                    System.out.println(response.getContent());
                 }
             }
 
         };
-        addBehaviour(mainBehaviour);
-    }
-    private ACLMessage createMessage()
-    {
+                addBehaviour(mainBehaviour);
+                }
+private ACLMessage createMessage()
+        {
         ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
-        msg.addReceiver(new AID("James", AID.ISLOCALNAME));
+        AID receiverJames = new AID( "James@192.168.1.112:1099/JADE", AID.ISGUID);
+        receiverJames.addAddresses("http://192.168.1.112:7778/acc");
+
+        // msg.addReceiver(new AID("James", AID.ISLOCALNAME));
+        msg.addReceiver(receiverJames);
         msg.setLanguage("English");
         msg.setOntology("Weather-Forecast");
         msg.setContent("Today is raining");
         return msg;
-    }
-}
+        }
+        }
