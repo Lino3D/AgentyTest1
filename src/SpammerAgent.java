@@ -32,7 +32,7 @@ public class SpammerAgent extends BaseAgent
     //Override
     protected void setup()
     {
-      super.setup();
+     // super.setup();
 //        SpamMessage = new CyclicBehaviour() {
 //            @Override
 //            public void action() {
@@ -46,7 +46,7 @@ public class SpammerAgent extends BaseAgent
             {
                 //send(createMessage(1)[0]);
 
-                ACLMessage[] messages = createMessages(2);
+                ACLMessage[] messages = createMessages();
                 for(ACLMessage message : messages)
                 {
                     send(message);
@@ -58,18 +58,27 @@ public class SpammerAgent extends BaseAgent
                 }
             }
                     };
-                  //  addBehaviour(mainBehaviour);
+                    addBehaviour(mainBehaviour);
             }
-    private ACLMessage[] createMessages(int messageNumber)
+    private ACLMessage[] createMessages()
         {
+
             ArrayList<ACLMessage> messages = new ArrayList<ACLMessage>();
-            for(int i=0; i< messageNumber; i++) {
+
+            Addresses = new ArrayList<>();
+            Addresses.add(new Address("http://DESKTOP-G6IPDM6:7778/acc","James@192.168.56.1:1099/JADE"));
+            for(int i=0; i< super.NumberOfMessages; i++) {
+
                 Address jamesAddress = new Address("http://192.168.1.112:7778/acc", "James@192.168.1.100:1099/JADE");
                 ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
+
+                // to można zastąpić przez zakomentowany kod
                 msg = addAllAdresses(msg, jamesAddress);
+                //msg = addAllAdresses(msg, (Address[]) Addresses.toArray());
+
                 msg.setLanguage("English");
                 msg.setOntology("Weather-Forecast");
-                msg.setContent(createRandomString(25));
+                msg.setContent(createRandomString(super.SizeOfMessage) + " " + i);
                 msg.hashCode();
                 messages.add(msg);
             }
@@ -87,7 +96,7 @@ public class SpammerAgent extends BaseAgent
     }
     private String createRandomString(int stringSize)
     {
-        char[] chars = "abcdefghijklmnopqrstuvwxyz1234567890".toCharArray();
+        char[] chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTW".toCharArray();
         StringBuilder sb = new StringBuilder();
         Random random = new Random();
         for (int i = 0; i < stringSize; i++) {
