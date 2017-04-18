@@ -1,9 +1,10 @@
 import jade.core.AID;
-import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.CyclicBehaviour;
-import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Created by Jakub on 09.03.2017.
@@ -28,57 +29,71 @@ public class SpammerAgent extends BaseAgent
     //Override
     protected void setup()
     {
-        super.setup();
-        SpamMessage = new CyclicBehaviour() {
-            @Override
-            public void action() {
-                // Spamujemy sobie
-            }
-        };
-        Behaviour mainBehaviour = new OneShotBehaviour(this)
+//        super.setup();
+//        SpamMessage = new CyclicBehaviour() {
+//            @Override
+//            public void action() {
+//                // Spamujemy sobie
+//            }
+//        };
+        Behaviour mainBehaviour = new CyclicBehaviour(this)
 
         {
             //Override
             public void action()
             {
-              //  System.out.println("My name is " + getAID().getName());
-                //System.out.println(!isFree ? "Not free" : "Free");
-               // if (isFree) isFree = false;
-               // else isFree = true;
-                send(createMessage());
+                //send(createMessage(1)[0]);
+
+                ACLMessage[] messages = createMessages(2);
+                for(ACLMessage message : messages)
+                {
+                    send(message);
+                }
                 ACLMessage response = receive();
                 if(response!=null)
                 {
                     System.out.println("GGood jooob");
-                    System.out.println(response.getContent());
                 }
             }
                     };
                     addBehaviour(mainBehaviour);
-                    }
-    private ACLMessage createMessage()
+            }
+    private ACLMessage[] createMessages(int messageNumber)
         {
-        ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
-        AID receiverJames = new AID( "James@192.168.1.100:1099/JADE", AID.ISGUID);
-        receiverJames.addAddresses("http://192.168.1.112:7778/acc");
-
-        // msg.addReceiver(new AID("James", AID.ISLOCALNAME));
-        msg.addReceiver(receiverJames);
-        msg.setLanguage("English");
-        msg.setOntology("Weather-Forecast");
-        msg.setContent("Today is raining");
-        msg.hashCode();
-        return msg;
+            ArrayList<ACLMessage> messages = new ArrayList<ACLMessage>();
+            for(int i=0; i< messageNumber; i++) {
+                Address jamesAddress = new Address("http://192.168.1.112:7778/acc", "James@192.168.1.100:1099/JADE");
+                ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
+                msg = addAllAdresses(msg, jamesAddress);
+                msg.setLanguage("English");
+                msg.setOntology("Weather-Forecast");
+                msg.setContent(createRandomString(25));
+                msg.hashCode();
+                messages.add(msg);
+            }
+            return messages.toArray(new ACLMessage[0]);
         }
-    private ACLMessage addAdresses(ACLMessage msg,String... adresses)
+    private ACLMessage addAllAdresses(ACLMessage msg,Address... adresses)
     {
-        for(String add : adresses)
+        for(Address address : adresses)
         {
-          //  msg.addReceiver(add);
+            AID receiver = new AID(address.AgentAdress, AID.ISGUID);
+            receiver.addAddresses(address.ComputerAdress);
+            msg.addReceiver(receiver);
         }
-
-
-    return msg;
+        return msg;
+    }
+    private String createRandomString(int stringSize)
+    {
+        char[] chars = "abcdefghijklmnopqrstuvwxyz1234567890".toCharArray();
+        StringBuilder sb = new StringBuilder();
+        Random random = new Random();
+        for (int i = 0; i < stringSize; i++) {
+            char c = chars[random.nextInt(chars.length)];
+            sb.append(c);
+        }
+        String output = sb.toString();
+        return output;
     }
 
 
