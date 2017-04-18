@@ -1,20 +1,19 @@
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
-import jade.core.behaviours.CyclicBehaviour;
-import jade.core.behaviours.SenderBehaviour;
+import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;
 
 /**
  * Created by Jakub on 09.03.2017.
  */
-public class Manager extends Agent
+public class SpammerAgent extends Agent
 {
     private boolean isFree = false;
     //Override
     protected void setup()
     {
-        Behaviour mainBehaviour = new CyclicBehaviour(this)
+        Behaviour mainBehaviour = new OneShotBehaviour(this)
 
         {
             //Override
@@ -32,13 +31,13 @@ public class Manager extends Agent
                     System.out.println(response.getContent());
                 }
             }
-        };
-                addBehaviour(mainBehaviour);
-    }
+                    };
+                    addBehaviour(mainBehaviour);
+                    }
     private ACLMessage createMessage()
-    {
+        {
         ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
-        AID receiverJames = new AID( "James@192.168.1.112:1099/JADE", AID.ISGUID);
+        AID receiverJames = new AID( "James@192.168.1.100:1099/JADE", AID.ISGUID);
         receiverJames.addAddresses("http://192.168.1.112:7778/acc");
 
         // msg.addReceiver(new AID("James", AID.ISLOCALNAME));
@@ -46,6 +45,20 @@ public class Manager extends Agent
         msg.setLanguage("English");
         msg.setOntology("Weather-Forecast");
         msg.setContent("Today is raining");
+        msg.hashCode();
         return msg;
+        }
+    private ACLMessage addAdresses(ACLMessage msg,String... adresses)
+    {
+        for(String add : adresses)
+        {
+          //  msg.addReceiver(add);
+        }
+
+
+    return msg;
     }
+
+
+
 }

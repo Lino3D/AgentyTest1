@@ -1,15 +1,16 @@
 import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.CyclicBehaviour;
+import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;
 
-public class TruckAgent extends Agent
+public class MessageConsumingAgent extends Agent
 {
     private boolean isFree = false;
     //Override
     protected void setup()
     {
-        Behaviour mainBehaviour = new CyclicBehaviour(this)
+        Behaviour mainBehaviour = new OneShotBehaviour(this)
 
         {
             //Override
