@@ -5,11 +5,16 @@ import jade.core.behaviours.OneShotBehaviour;
 import jade.core.behaviours.TickerBehaviour;
 import jade.lang.acl.ACLMessage;
 
+import java.util.List;
+
 
 /**
  * Created by Mike on 18.04.2017.
  */
 public class BaseAgent  extends Agent{
+    List<Address> Addresses;
+    int SizeOfMessage = 10;
+    int NumberOfMessages = 10;
     Behaviour MainLoop;
     boolean TestStarted = false;
     protected void setup() {
