@@ -4,13 +4,16 @@ import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;
+import jade.lang.acl.MessageTemplate;
 
 public class MessageConsumingAgent extends BaseAgent {
     private boolean ContinueReceiving = false;
+    int Maxcount = 0;
     Behaviour mainBehaviour;
 
     @Override
     protected void StartTask() {
+         Maxcount = NumberOfMessages *AgentsToCommunicate.size();
         addBehaviour(mainBehaviour);
     }
 
@@ -20,7 +23,7 @@ public class MessageConsumingAgent extends BaseAgent {
 
         // Love this Comment! :D
         //liczba wiadomości * liczba agentów. jestem zbyt śpiący by to teraz ładnie ogarnąć. najlepiej jakaś klasa.
-        int Maxcount = NumberOfMessages *1;
+
 
         mainBehaviour = new CyclicBehaviour(this) {
             int counter = 0;
@@ -29,6 +32,9 @@ public class MessageConsumingAgent extends BaseAgent {
             public void action() {
 
                 ACLMessage msg = receive();
+            //    MessageTemplate templ
+
+
 
                 if (msg != null && counter < Maxcount) {
                     switch (msg.getPerformative()) {
