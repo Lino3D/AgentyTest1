@@ -1,5 +1,6 @@
 import jade.core.AID;
 import jade.core.Agent;
+import jade.core.MessageQueue;
 import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
@@ -28,6 +29,8 @@ public class MessageConsumingAgent extends BaseAgent {
         mainBehaviour = new CyclicBehaviour(this) {
             int counter = 0;
 
+
+
             //Override
             public void action() {
 
@@ -36,7 +39,12 @@ public class MessageConsumingAgent extends BaseAgent {
 
 
 
+
+
+
                 if (msg != null && counter < Maxcount) {
+//                    MessageQueue messageQueue = createMessageQueue();
+//                    messageQueue.addLast(msg);
                     switch (msg.getPerformative()) {
                     case ACLMessage.REQUEST: {
                         System.out.println("Received message: " + msg.getContent());

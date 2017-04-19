@@ -26,11 +26,17 @@ public class EMAAgent extends Agent {
 
     protected void setup() {
         Addresses = new ArrayList<>();
-        Addresses.add(new Address("http://DESKTOP-G6IPDM6:7778/acc", "Master@192.168.90.107:1099/JADE"));
-        Addresses.add(new Address("http://DESKTOP-G6IPDM6:7778/acc", "John@192.168.90.107:1099/JADE"));
+//        Addresses.add(new Address("http://DESKTOP-G6IPDM6:7778/acc", "Master@192.168.90.107:1099/JADE"));
+//        Addresses.add(new Address("http://DESKTOP-G6IPDM6:7778/acc", "John@192.168.90.107:1099/JADE"));
+//
+//        SpammerAddresses = new ArrayList<>();
+//        SpammerAddresses.add(new Address("http://DESKTOP-G6IPDM6:7778/acc", "Bob@192.168.90.107:1099/JADE"));
+
+        Addresses.add(new Address("http://192.168.1.100:7778/acc", "Master@192.168.1.100:1099/JADE"));
+        Addresses.add(new Address("http://192.168.1.100:7778/acc", "John@192.168.1.100:1099/JADE"));
 
         SpammerAddresses = new ArrayList<>();
-        SpammerAddresses.add(new Address("http://DESKTOP-G6IPDM6:7778/acc", "Bob@192.168.90.107:1099/JADE"));
+        SpammerAddresses.add(new Address("http://192.168.1.100:7778/acc", "Bob@@192.168.1.100:1099/JADE"));
 
         StartExperiment = new OneShotBehaviour() {
             @Override
