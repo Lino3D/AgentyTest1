@@ -37,7 +37,7 @@ public class BaseAgent extends Agent {
                                 // Czekamy wiadomosc od naszego EMA, jak dostaniemy, to robimy
                                 CreateCommunicationArray(msg.getContent());
                                 TestStarted = true;
-                                System.out.println("Startuje swoje zadanie! " + getAID());
+                                System.out.println("Startuje swoje zadanie! " + getAID().getName());
                                 StartTask();
                             }
                         }
@@ -61,6 +61,7 @@ public class BaseAgent extends Agent {
                 receiver.addAddresses(MasterAgentAddress.AgentAdress);
                 message.addReceiver(receiver);
                 send(message);
+                System.out.println("Skończyłem zadanie" + getAID().getName());
             }
         };
     }
