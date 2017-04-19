@@ -57,8 +57,8 @@ public class BaseAgent extends Agent {
                 message.setLanguage("English");
                 message.setOntology("Test-Ending");
                 message.setContent("Job done!");
-                AID receiver = new AID(MasterAgentAddress.AgentAdress,AID.ISGUID);
-                receiver.addAddresses(MasterAgentAddress.ComputerAdress);
+                AID receiver = new AID(MasterAgentAddress.ComputerAdress,AID.ISGUID);
+                receiver.addAddresses(MasterAgentAddress.AgentAdress);
                 message.addReceiver(receiver);
                 send(message);
             }

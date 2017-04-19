@@ -16,6 +16,9 @@ import java.util.List;
 public class EMAAgent extends Agent {
     List<Address> Addresses;
     List<Address> SpammerAddresses;
+    long StartTime;
+    long EndTime;
+    int ReceivedSuccessReports = 0;
     int SizeOfMessage = 10;
     int NumberOfMessages = 10;
     Behaviour StartExperiment;
@@ -32,13 +35,14 @@ public class EMAAgent extends Agent {
         StartExperiment = new OneShotBehaviour() {
             @Override
             public void action() {
-                // Dodajemy event czekania na odpowiedz
+                ReceivedSuccessReports = 0;
                 addBehaviour(ReceiveEndReports);
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+                StartTime = System.currentTimeMillis();
                 ACLMessage msg = new ACLMessage(ACLMessage.CONFIRM);
                 for (Address x : Addresses) {
                     msg = AddReceiver(msg, x);
@@ -51,9 +55,6 @@ public class EMAAgent extends Agent {
                 msg.setOntology("Weather-Forecast");
                 msg.setContent(PrepareContent());
                 msg.hashCode();
-                // TODO: Wykomentowac pozniej
-                // TODO: A swoją drogą to to się będzie gryźć bo nie przekazujemy tego w tabeli adresatów
-                msg.addReceiver(new AID("Sam", AID.ISLOCALNAME));
                 send(msg);
             }
         };
@@ -65,8 +66,16 @@ public class EMAAgent extends Agent {
                 ACLMessage msg = receive();
 
                 if (msg != null) {
-                    // Zliczanie i raportowanie informacji o zakonczonych zadaniach
-
+                    if( msg.getPerformative() == ACLMessage.INFORM)
+                    {
+                        ReceivedSuccessReports++;
+                        if( ReceivedSuccessReports == Addresses.size() -1 )
+                        {
+                            EndTime = System.currentTimeMillis();
+                            long estimatedTime = EndTime - StartTime;
+                            String Podsumowanie = String.valueOf(estimatedTime);
+                        }
+                    }
                 }
             }
         };
