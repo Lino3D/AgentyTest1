@@ -40,7 +40,7 @@ public class SpammerAgent extends BaseAgent {
 
             ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
 
-            msg = addAllAdresses(msg, (AgentCommunication[]) AgentsToCommunicate.toArray());
+            msg = addAllAdresses(msg,  AgentsToCommunicate.toArray(new AgentCommunication[AgentsToCommunicate.size()]));
 
             msg.setLanguage("English");
             msg.setOntology("Weather-Forecast");
@@ -48,13 +48,13 @@ public class SpammerAgent extends BaseAgent {
             msg.hashCode();
             messages.add(msg);
         }
-        return messages.toArray(new ACLMessage[0]);
+        return messages.toArray(new ACLMessage[messages.size()]);
     }
 
     private ACLMessage addAllAdresses(ACLMessage msg, AgentCommunication... adresses) {
         for (AgentCommunication address : adresses) {
-            AID receiver = new AID(address.Address.AgentAdress, AID.ISGUID);
-            receiver.addAddresses(address.Address.ComputerAdress);
+            AID receiver = new AID(address.Address.ComputerAdress, AID.ISGUID);
+            receiver.addAddresses(address.Address.AgentAdress);
             msg.addReceiver(receiver);
         }
         return msg;
