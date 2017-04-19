@@ -23,7 +23,7 @@ public class BaseAgent extends Agent {
     boolean TestStarted = false;
 
     protected void setup() {
-        MainLoop = new TickerBehaviour(this, 3000) {
+        MainLoop = new TickerBehaviour(this, 1000) {
             @Override
             protected void onTick() {
                 ACLMessage msg = receive();
@@ -75,7 +75,7 @@ public class BaseAgent extends Agent {
         else
             AgentsToCommunicate = new ArrayList<>();
         for (int i = 4; i < parts.length; i += 2) {
-            AgentsToCommunicate.add(new AgentCommunication(new Address(parts[5], parts[6])));
+            AgentsToCommunicate.add(new AgentCommunication(new Address(parts[i], parts[i+1])));
         }
 
     }

@@ -20,7 +20,7 @@ public class MessageConsumingAgent extends BaseAgent {
 
         // Love this Comment! :D
         //liczba wiadomości * liczba agentów. jestem zbyt śpiący by to teraz ładnie ogarnąć. najlepiej jakaś klasa.
-        int Maxcount = super.NumberOfMessages * 1;
+        int Maxcount = NumberOfMessages *1;
 
         mainBehaviour = new CyclicBehaviour(this) {
             int counter = 0;
@@ -31,16 +31,18 @@ public class MessageConsumingAgent extends BaseAgent {
                 ACLMessage msg = receive();
 
                 if (msg != null && counter < Maxcount) {
-                    ACLMessage response = msg.createReply();
-                    response.setPerformative(ACLMessage.INFORM);
+                    switch (msg.getPerformative()) {
+                    case ACLMessage.REQUEST: {
+                        System.out.println("Received message: " + msg.getContent());
+                        String number = msg.getContent().replaceAll("\\D+", "");
+                        System.out.println("Nr:" + number);
+                        counter++;
+                    }
+                        default:{
+                            break;
+                        }
+                    }
 
-                    // TODO: Na pewno ten response jest potrzebny?
-                    response.setContent("Hello my honey");
-                    System.out.println("Received message: " + msg.getContent());
-                    String number = msg.getContent().replaceAll("\\D+", "");
-                    System.out.println("Nr:" + number);
-                    counter++;
-                    send(response);
                 }
                 // Teoretyczny warunek brzegowy
                 if (counter >= Maxcount) {

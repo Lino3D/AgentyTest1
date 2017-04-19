@@ -13,19 +13,23 @@ import java.util.List;
 /**
  * Created by Mike on 18.04.2017.
  */
-public class EMAAgent  extends Agent{
+public class EMAAgent extends Agent {
     List<Address> Addresses;
+    List<Address> SpammerAddresses;
     int SizeOfMessage = 10;
     int NumberOfMessages = 10;
     Behaviour StartExperiment;
     Behaviour ReceiveEndReports;
 
-    protected void setup(){
+    protected void setup() {
         Addresses = new ArrayList<>();
-     //   Addresses.add(new Address("http://DESKTOP-G6IPDM6:7778/acc","James@192.168.56.1:1099/JADE"));
-        Addresses.add(new Address("http://DESKTOP-IJG535C.am.edu.pl:7778/acc","Bob@192.168.56.1:1099/JADE"));
+        Addresses.add(new Address("http://DESKTOP-G6IPDM6:7778/acc", "Master@192.168.90.107:1099/JADE"));
+        Addresses.add(new Address("http://DESKTOP-G6IPDM6:7778/acc", "John@192.168.90.107:1099/JADE"));
 
-         StartExperiment = new OneShotBehaviour() {
+        SpammerAddresses = new ArrayList<>();
+        SpammerAddresses.add(new Address("http://DESKTOP-G6IPDM6:7778/acc", "Bob@192.168.90.107:1099/JADE"));
+
+        StartExperiment = new OneShotBehaviour() {
             @Override
             public void action() {
                 // Dodajemy event czekania na odpowiedz
@@ -36,17 +40,20 @@ public class EMAAgent  extends Agent{
                     e.printStackTrace();
                 }
                 ACLMessage msg = new ACLMessage(ACLMessage.CONFIRM);
-                for(Address x : Addresses)
-                {
+                for (Address x : Addresses) {
+                    msg = AddReceiver(msg, x);
+                }
+                for(Address x : SpammerAddresses){
                     msg = AddReceiver(msg,x);
                 }
+
                 msg.setLanguage("English");
                 msg.setOntology("Weather-Forecast");
                 msg.setContent(PrepareContent());
                 msg.hashCode();
                 // TODO: Wykomentowac pozniej
                 // TODO: A swoją drogą to to się będzie gryźć bo nie przekazujemy tego w tabeli adresatów
-                msg.addReceiver(new AID("Sam",AID.ISLOCALNAME));
+                msg.addReceiver(new AID("Sam", AID.ISLOCALNAME));
                 send(msg);
             }
         };
@@ -57,8 +64,7 @@ public class EMAAgent  extends Agent{
             public void action() {
                 ACLMessage msg = receive();
 
-                if( msg != null)
-                {
+                if (msg != null) {
                     // Zliczanie i raportowanie informacji o zakonczonych zadaniach
 
                 }
@@ -66,9 +72,8 @@ public class EMAAgent  extends Agent{
         };
     }
 
-    private ACLMessage AddReceiver(ACLMessage msg, Address AgentAddress)
-    {
-        AID receiver = new AID( AgentAddress.AgentAdress , AID.ISGUID);
+    private ACLMessage AddReceiver(ACLMessage msg, Address AgentAddress) {
+        AID receiver = new AID(AgentAddress.AgentAdress, AID.ISGUID);
         receiver.addAddresses(AgentAddress.ComputerAdress);
 
         msg.addReceiver(receiver);
@@ -76,16 +81,14 @@ public class EMAAgent  extends Agent{
         return msg;
     }
 
-    private String PrepareContent()
-    {
+    private String PrepareContent() {
         String RetValue = "";
-        RetValue += new Integer(SizeOfMessage).toString() +";";
-        RetValue += new Integer(NumberOfMessages).toString() +";";
+        RetValue += new Integer(SizeOfMessage).toString() + ";";
+        RetValue += new Integer(NumberOfMessages).toString() + ";";
 
-        for( Address x : Addresses)
-        {
-            RetValue += x.AgentAdress +";";
-            RetValue += x.ComputerAdress+";";
+        for (Address x : Addresses) {
+            RetValue += x.AgentAdress + ";";
+            RetValue += x.ComputerAdress + ";";
         }
 
         return RetValue;
