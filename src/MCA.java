@@ -26,6 +26,11 @@ public class MCA extends BaseAgent {
     //Override
     protected void setup() {
         super.setup();
+        try {
+            Thread.sleep(6000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         // Love this Comment! :D
         //liczba wiadomości * liczba agentów. jestem zbyt śpiący by to teraz ładnie ogarnąć. najlepiej jakaś klasa.
@@ -50,16 +55,17 @@ public class MCA extends BaseAgent {
                 //    MessageTemplate templ
 
 
-                if (msg != null && counter < Maxcount) {
+                if (msg != null && counter < Maxcount -1 ) {
 //                    MessageQueue messageQueue = createMessageQueue();
 //                    messageQueue.addLast(msg);
                     switch (msg.getPerformative()) {
                         case ACLMessage.CFP:
                         case ACLMessage.REQUEST: {
-                            System.out.println("Received message: " + msg.getContent());
+                            System.out.println("Received message: " + msg.getSender().getName());
                             String number = msg.getContent().replaceAll("\\D+", "");
                             System.out.println("Nr:" + number);
                             counter++;
+                            System.out.println("Counter " + counter);
                         }
                         default: {
                             break;
@@ -68,7 +74,7 @@ public class MCA extends BaseAgent {
 
                 }
                 // Teoretyczny warunek brzegowy
-                if (counter >= Maxcount) {
+                if (counter >= Maxcount -1) {
                     // wysylamy raport o zakonczonym zadaniu i konczymy prace
                     addBehaviour(SendSuccessReport);
                     removeBehaviour(mainBehaviour);

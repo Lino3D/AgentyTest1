@@ -16,7 +16,7 @@ import java.util.List;
 public class EMAAgent extends Agent {
     List<Address> Addresses;
     List<Address> SpammerAddresses;
-    boolean TestModePart2 = true;
+    boolean TestModePart2 = false;
     long StartTime;
     long EndTime;
     int ReceivedSuccessReports = 0;
@@ -33,17 +33,17 @@ public class EMAAgent extends Agent {
 //        SpammerAddresses = new ArrayList<>();
 //        SpammerAddresses.add(new Address("http://DESKTOP-G6IPDM6:7778/acc", "Bob@192.168.90.107:1099/JADE"));
 
-//        Addresses.add(new Address("http://192.168.1.100:7778/acc", "Master@192.168.1.100:1099/JADE"));
-//        Addresses.add(new Address("http://192.168.1.100:7778/acc", "John@192.168.1.100:1099/JADE"));
-//
-//        SpammerAddresses = new ArrayList<>();
-//        SpammerAddresses.add(new Address("http://192.168.1.100:7778/acc", "Bob@@192.168.1.100:1099/JADE"));
-//
-        Addresses.add(new Address("http://DESKTOP-IJG535C.am.edu.pl:7778/acc", "Master@192.168.56.1:1099/JADE"));
-        Addresses.add(new Address("http://DESKTOP-IJG535C.am.edu.pl:7778/acc", "Bob@192.168.56.1:1099/JADE"));
+        Addresses.add(new Address("http://192.168.1.100:7778/acc", "Master@192.168.1.100:1099/JADE"));
+        Addresses.add(new Address("http://192.168.1.100:7778/acc", "John@192.168.1.100:1099/JADE"));
 
         SpammerAddresses = new ArrayList<>();
-        SpammerAddresses.add(new Address("http://DESKTOP-IJG535C.am.edu.pl:7778/acc", "Sam@192.168.56.1:1099/JADE"));
+        SpammerAddresses.add(new Address("http://192.168.1.100:7778/acc", "Bob@192.168.1.100:1099/JADE"));
+//
+//        Addresses.add(new Address("http://DESKTOP-IJG535C.am.edu.pl:7778/acc", "Master@192.168.56.1:1099/JADE"));
+//        Addresses.add(new Address("http://DESKTOP-IJG535C.am.edu.pl:7778/acc", "Bob@192.168.56.1:1099/JADE"));
+//
+//        SpammerAddresses = new ArrayList<>();
+//        SpammerAddresses.add(new Address("http://DESKTOP-IJG535C.am.edu.pl:7778/acc", "Sam@192.168.56.1:1099/JADE"));
 
         StartExperiment = new OneShotBehaviour() {
             @Override
