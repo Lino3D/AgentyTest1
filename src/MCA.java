@@ -55,7 +55,7 @@ public class MCA extends BaseAgent {
                 //    MessageTemplate templ
 
 
-                if (msg != null && counter < Maxcount -1 ) {
+                if (msg != null && counter < Maxcount  ) {
 //                    MessageQueue messageQueue = createMessageQueue();
 //                    messageQueue.addLast(msg);
                     switch (msg.getPerformative()) {
@@ -74,7 +74,7 @@ public class MCA extends BaseAgent {
 
                 }
                 // Teoretyczny warunek brzegowy
-                if (counter >= Maxcount -1) {
+                if (counter >= Maxcount ) {
                     // wysylamy raport o zakonczonym zadaniu i konczymy prace
                     addBehaviour(SendSuccessReport);
                     removeBehaviour(mainBehaviour);

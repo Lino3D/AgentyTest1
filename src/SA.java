@@ -15,9 +15,15 @@ public class SA extends BaseAgent {
 
     @Override
     protected void StartTask() {
-        addBehaviour(mainBehaviour);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         MessagesSent = 0;
         MaxMessages = NumberOfMessages * AgentsToCommunicate.size();
+        addBehaviour(mainBehaviour);
+
     }
 
 
