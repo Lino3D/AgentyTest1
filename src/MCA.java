@@ -7,14 +7,19 @@ import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 
-public class MessageConsumingAgent extends BaseAgent {
+public class MCA extends BaseAgent {
     private boolean ContinueReceiving = false;
     int Maxcount = 0;
+    int ReceivedFromSpecial = 0;
+    int counter = 0;
     Behaviour mainBehaviour;
+    MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.CFP);
 
     @Override
     protected void StartTask() {
-         Maxcount = NumberOfMessages *AgentsToCommunicate.size();
+        Maxcount = NumberOfMessages * AgentsToCommunicate.size();
+        ReceivedFromSpecial = 0;
+        counter = 0;
         addBehaviour(mainBehaviour);
     }
 
@@ -27,32 +32,36 @@ public class MessageConsumingAgent extends BaseAgent {
 
 
         mainBehaviour = new CyclicBehaviour(this) {
-            int counter = 0;
 
 
 
             //Override
             public void action() {
-
-                ACLMessage msg = receive();
-            //    MessageTemplate templ
-
-
-
-
+                ACLMessage msg;
+                if (TestModePart2 && ReceivedFromSpecial < NumberOfMessages) {
+                    msg = receive(mt);
+                    if( msg != null)
+                        ReceivedFromSpecial++;
+                    if (msg == null)
+                        msg = receive();
+                } else {
+                    msg = receive();
+                }
+                //    MessageTemplate templ
 
 
                 if (msg != null && counter < Maxcount) {
 //                    MessageQueue messageQueue = createMessageQueue();
 //                    messageQueue.addLast(msg);
                     switch (msg.getPerformative()) {
-                    case ACLMessage.REQUEST: {
-                        System.out.println("Received message: " + msg.getContent());
-                        String number = msg.getContent().replaceAll("\\D+", "");
-                        System.out.println("Nr:" + number);
-                        counter++;
-                    }
-                        default:{
+                        case ACLMessage.CFP:
+                        case ACLMessage.REQUEST: {
+                            System.out.println("Received message: " + msg.getContent());
+                            String number = msg.getContent().replaceAll("\\D+", "");
+                            System.out.println("Nr:" + number);
+                            counter++;
+                        }
+                        default: {
                             break;
                         }
                     }

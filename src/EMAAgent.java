@@ -16,11 +16,12 @@ import java.util.List;
 public class EMAAgent extends Agent {
     List<Address> Addresses;
     List<Address> SpammerAddresses;
+    boolean TestModePart2 = true;
     long StartTime;
     long EndTime;
     int ReceivedSuccessReports = 0;
-    int SizeOfMessage = 110;
-    int NumberOfMessages = 110;
+    int SizeOfMessage = 1000;
+    int NumberOfMessages = 10000;
     Behaviour StartExperiment;
     Behaviour ReceiveEndReports;
 
@@ -32,11 +33,17 @@ public class EMAAgent extends Agent {
 //        SpammerAddresses = new ArrayList<>();
 //        SpammerAddresses.add(new Address("http://DESKTOP-G6IPDM6:7778/acc", "Bob@192.168.90.107:1099/JADE"));
 
-        Addresses.add(new Address("http://192.168.1.100:7778/acc", "Master@192.168.1.100:1099/JADE"));
-        Addresses.add(new Address("http://192.168.1.100:7778/acc", "John@192.168.1.100:1099/JADE"));
+//        Addresses.add(new Address("http://192.168.1.100:7778/acc", "Master@192.168.1.100:1099/JADE"));
+//        Addresses.add(new Address("http://192.168.1.100:7778/acc", "John@192.168.1.100:1099/JADE"));
+//
+//        SpammerAddresses = new ArrayList<>();
+//        SpammerAddresses.add(new Address("http://192.168.1.100:7778/acc", "Bob@@192.168.1.100:1099/JADE"));
+//
+        Addresses.add(new Address("http://DESKTOP-IJG535C.am.edu.pl:7778/acc", "Master@192.168.56.1:1099/JADE"));
+        Addresses.add(new Address("http://DESKTOP-IJG535C.am.edu.pl:7778/acc", "Bob@192.168.56.1:1099/JADE"));
 
         SpammerAddresses = new ArrayList<>();
-        SpammerAddresses.add(new Address("http://192.168.1.100:7778/acc", "Bob@@192.168.1.100:1099/JADE"));
+        SpammerAddresses.add(new Address("http://DESKTOP-IJG535C.am.edu.pl:7778/acc", "Sam@192.168.56.1:1099/JADE"));
 
         StartExperiment = new OneShotBehaviour() {
             @Override
@@ -80,6 +87,14 @@ public class EMAAgent extends Agent {
                             EndTime = System.currentTimeMillis();
                             long estimatedTime = EndTime - StartTime;
                             String Podsumowanie = String.valueOf(estimatedTime);
+
+                            System.out.println("#################################################");
+                            System.out.println("Zakończyłem prace!");
+                            System.out.println("Ilosc agentów: " + (Addresses.size() -1));
+                            System.out.println("Ilosc wiadomości do wysłania: " + NumberOfMessages);
+                            System.out.println("Wielkość wiadomości: " + SizeOfMessage);
+                            System.out.println("Czas trwania symulacji: " + estimatedTime);
+                            System.out.println("#################################################");
                         }
                     }
                 }
@@ -100,6 +115,13 @@ public class EMAAgent extends Agent {
         String RetValue = "";
         RetValue += new Integer(SizeOfMessage).toString() + ";";
         RetValue += new Integer(NumberOfMessages).toString() + ";";
+        if( TestModePart2)
+            RetValue += "1;";
+        else
+            RetValue += "0;";
+
+        RetValue += SpammerAddresses.get(0).AgentAdress +";";
+        RetValue += SpammerAddresses.get(0).ComputerAdress + ";";
 
         for (Address x : Addresses) {
             RetValue += x.AgentAdress + ";";

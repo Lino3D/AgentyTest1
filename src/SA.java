@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class SpammerAgent extends BaseAgent {
+public class SA extends BaseAgent {
     Behaviour mainBehaviour;
     int MessagesSent = 0;
     int MaxMessages = 0;
@@ -38,9 +38,14 @@ public class SpammerAgent extends BaseAgent {
         ArrayList<ACLMessage> messages = new ArrayList<ACLMessage>();
         for (int i = 0; i < NumberOfMessages; i++) {
 
-            ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
+            ACLMessage msg;
 
-            msg = addAllAdresses(msg,  AgentsToCommunicate.toArray(new AgentCommunication[AgentsToCommunicate.size()]));
+            if (AmIASpecialAgent && TestModePart2)
+                msg = new ACLMessage(ACLMessage.CFP);
+            else
+                msg = new ACLMessage(ACLMessage.REQUEST);
+
+            msg = addAllAdresses(msg, AgentsToCommunicate.toArray(new AgentCommunication[AgentsToCommunicate.size()]));
 
             msg.setLanguage("English");
             msg.setOntology("Weather-Forecast");
