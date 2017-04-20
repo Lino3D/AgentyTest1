@@ -44,14 +44,14 @@ public class EMAAgent extends Agent {
      //   Addresses.add(new Address("http://ATJ340JYQZ202.am.edu.pl:7778/acc", "OknoRec@10.0.2.230:1099/JADE"));
 
 
-        Addresses.add(new Address("http://DESKTOP-G6IPDM6:7778/acc", "Master@192.168.90.107:1099/JADE"));
-        Addresses.add(new Address("http://DESKTOP-G6IPDM6:7778/acc", "MCAHoza@192.168.90.107:1099/JADE"));
+        Addresses.add(new Address("http://192.168.90.100:7778/acc", "Master@192.168.90.107:1099/JADE"));
+        Addresses.add(new Address("http://192.168.90.107:7778/acc", "MCAHoza@192.168.90.107:1099/JADE"));
         Addresses.add(new Address("http://192.168.90.100:7778/acc", "MCADell@192.168.90.100:1099/JADE"));
 
         SpammerAddresses = new ArrayList<>();
      //   SpammerAddresses.add(new Address("http://DESKTOP-IJG535C.am.edu.pl:7778/acc", "Sam@192.168.56.1:1099/JADE"));
       //  SpammerAddresses.add(new Address("http://ATJ340JYQZ202.am.edu.pl:7778/acc", "OknoSpam@10.0.2.230:1099/JADE"));
-        SpammerAddresses.add(new Address("http://DESKTOP-G6IPDM6:7778/acc", "SAHoza@192.168.90.107:1099/JADE"));
+        SpammerAddresses.add(new Address("http://192.168.90.107:7778/acc", "SAHoza@192.168.90.107:1099/JADE"));
         SpammerAddresses.add(new Address("http://192.168.90.100:7778/acc", "SADell@192.168.90.100:1099/JADE"));
 
         StartExperiment = new OneShotBehaviour() {
