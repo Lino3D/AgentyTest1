@@ -10,6 +10,12 @@ public class AgentCommunication {
     int MessagesReceived = 0;
     List<JadeMessage> Messages;
 
+    public AgentCommunication(Address address, int NumberOfMessages) {
+        Address = address;
+        Messages = new ArrayList<>();
+        for(int i = 0; i < NumberOfMessages; i++)
+            Messages.add(new JadeMessage(i,""));
+    }
     public AgentCommunication(Address address) {
         Address = address;
         Messages = new ArrayList<>();

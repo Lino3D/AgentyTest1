@@ -69,23 +69,24 @@ public class SA extends BaseAgent {
 
     private void createJadeMessages(){
 
-        ArrayList<String> messagesContents = new ArrayList<String>(NumberOfMessages);
-        for(String m : messagesContents)
+        ArrayList<String> messagesContents = new ArrayList<String>();
+        for(int i = 0; i < NumberOfMessages; i++)
         {
-            m = createRandomString(SizeOfMessage);
+            String m = createRandomString(SizeOfMessage);
+            messagesContents.add(m);
         }
 
-        ArrayList<ACLMessage> messages = new ArrayList<ACLMessage>(SizeOfMessage);
+      //  ArrayList<ACLMessage> messages = new ArrayList<ACLMessage>(NumberOfMessages);
         for(AgentCommunication  AC : AgentsToCommunicate)
         {
-            for(int i=0; i<SizeOfMessage; i++)
+            for(int i=0; i<NumberOfMessages; i++)
                 AC.Messages.add(new JadeMessage(i, messagesContents.get(i)));
         }
 
     }
     private void sendMessages()
     {
-
+        createJadeMessages();
         for(AgentCommunication AC: AgentsToCommunicate)
         {
             ArrayList<ACLMessage> messages = new ArrayList<ACLMessage>(NumberOfMessages);

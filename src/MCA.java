@@ -109,6 +109,6 @@ public class MCA extends BaseAgent {
     }
 
     private void AddSender(ACLMessage msg) {
-        Senders.add(new AgentCommunication(new Address("", msg.getSender().toString())));
+        Senders.add(new AgentCommunication(new Address("", msg.getSender().toString()),NumberOfMessages));
     }
 }
