@@ -40,7 +40,7 @@ public class SA extends BaseAgent {
 //                    send(message);
 //                }
                 createJadeMessages();
-                sendMessages();
+                SendMessagesToAgents();
                 System.out.println("Spamer - Skończyłem zadanie" + getAID().getName());
             }
         };
@@ -123,10 +123,10 @@ public class SA extends BaseAgent {
             SendSingleMessageToAgents(i);
         //    TryRecieveResponsesFromAgents();
         }
-        int responses = 0;
-
-        for( int i = 0; i < AgentsToCommunicate.size();i++)
-            responses += AgentsToCommunicate.get(i).MessagesReceived;
+//        int responses = 0;
+//
+//        for( int i = 0; i < AgentsToCommunicate.size();i++)
+//            responses += AgentsToCommunicate.get(i).MessagesReceived;
       // System.out.println("Dostałem responsów: " + responses);
     }
 
@@ -185,8 +185,31 @@ public class SA extends BaseAgent {
         }
     }
 
+    private void SendMessagesToAgents()
+    {
+    ArrayList<ACLMessage> allMessages = new ArrayList<ACLMessage>() {
+    };
 
-    private ACLMessage addAllAdresses(ACLMessage msg, AgentCommunication... adresses) {
+    for(int i=0; i< NumberOfMessages; i++)
+    {
+        ACLMessage msg = new ACLMessage();
+
+        msg = addAllAdresses(msg, AgentsToCommunicate);
+        msg.setContent(AgentsToCommunicate.get((0)).Messages.get(i).Message + " " + i);
+        msg.setLanguage("English");
+        msg.setOntology("Weather-Forecast");
+        allMessages.add(msg);
+    }
+    for(ACLMessage m : allMessages)
+        send(m);
+
+
+
+    }
+
+
+
+    private ACLMessage addAllAdresses(ACLMessage msg, List<AgentCommunication> adresses) {
         for (AgentCommunication address : adresses) {
             AID receiver = new AID(address.Address.ComputerAdress, AID.ISGUID);
             receiver.addAddresses(address.Address.AgentAdress);

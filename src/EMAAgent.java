@@ -20,8 +20,8 @@ public class EMAAgent extends Agent {
     long StartTime;
     long EndTime;
     int ReceivedSuccessReports = 0;
-    int SizeOfMessage = 1000;
-    int NumberOfMessages = 3000;
+    int SizeOfMessage = 500;
+    int NumberOfMessages = 10000;
     List<String> ReceivedMessages;
     Behaviour StartExperiment;
     Behaviour ReceiveEndReports;
