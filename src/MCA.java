@@ -16,6 +16,10 @@ public class MCA extends BaseAgent {
     int Maxcount = 0;
     int ReceivedFromSpecial = 0;
     int counter = 0;
+    boolean BeganCounting = false;
+    long StartTimer;
+    long EndTimer;
+
     Behaviour mainBehaviour;
     MessageTemplate mt = MessageTemplate.MatchPerformative(ACLMessage.CFP);
 
@@ -49,6 +53,7 @@ public class MCA extends BaseAgent {
                     msg = receive();
                 }
                 if (msg != null && counter < Maxcount) {
+                    BeganCounting = false;
                     switch (msg.getPerformative()) {
                         case ACLMessage.CFP:
                         case ACLMessage.REQUEST: {
@@ -56,6 +61,23 @@ public class MCA extends BaseAgent {
                         }
                         default: {
                             break;
+                        }
+                    }
+
+                }
+                if( msg == null )
+                {
+                    if(BeganCounting == false)
+                    {
+                        BeganCounting = true;
+                        StartTimer = System.currentTimeMillis();
+                    }
+                    else
+                    {
+                        EndTimer = System.currentTimeMillis();
+                        if( EndTimer - StartTimer > 3000 ) {
+                            addBehaviour(SendSuccessReport);
+                            removeBehaviour(mainBehaviour);
                         }
                     }
 

@@ -41,6 +41,7 @@ public class SA extends BaseAgent {
 //                }
                 createJadeMessages();
                 sendMessages();
+                System.out.println("Spamer - Skończyłem zadanie" + getAID().getName());
             }
         };
     }
@@ -84,28 +85,49 @@ public class SA extends BaseAgent {
 
     }
 
+//    private void SendMessagesVersion2() {
+//        for (int i = 0; i < NumberOfMessages; i++) {
+//            for (AgentCommunication AC : AgentsToCommunicate) {
+//                if (AC.Messages.get(i).IsSent && AC.Messages.get(i).WasRespondedTo)
+//                    continue;
+//                ACLMessage msg;
+//                if (AmIASpecialAgent && TestModePart2)
+//                    msg = new ACLMessage(ACLMessage.CFP);
+//                else
+//                    msg = new ACLMessage(ACLMessage.REQUEST);
+//                msg.setLanguage("English");
+//                msg.setOntology("Weather-Forecast");
+//                msg.setContent(AC.Messages.get(i).Message + " " + AC.Messages.get(i).Id);
+//                msg.addReceiver(AC.Address.Receiver);
+//                msg.hashCode();
+//                send(msg);
+//                AC.Messages.get(i).IsSent = true;
+//
+//                ACLMessage msg2;
+//
+//                msg2 = receive();
+//                if (msg2 == null) {
+//                    block();
+//                }
+//                if (msg2.getPerformative() == ACLMessage.AGREE) {
+//                    ParseResponse(msg2);
+//                }
+//
+//            }
+//        }
+//    }
+
+
     private void sendMessages() {
-        boolean IsDirty;
-        while (true) {
-            for (int i = 0; i < NumberOfMessages; i++) {
-                SendSingleMessageToAgents(i);
-                TryRecieveResponsesFromAgents();
-            }
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+        for (int i = 0; i < NumberOfMessages; i++) {
+            SendSingleMessageToAgents(i);
             TryRecieveResponsesFromAgents();
-            IsDirty = false;
-            for (int i = 0; i < AgentsToCommunicate.size(); i++) {
-                if (AgentsToCommunicate.get(i).MessagesReceived < NumberOfMessages)
-                    IsDirty = true;
-            }
-            if (IsDirty == false)
-                break;
         }
-        int abc = 2;
+        int responses = 0;
+
+        for( int i = 0; i < AgentsToCommunicate.size();i++)
+            responses += AgentsToCommunicate.get(i).MessagesReceived;
+        System.out.println("Dostałem responsów: " + responses);
     }
 
 
@@ -160,6 +182,7 @@ public class SA extends BaseAgent {
             msg.hashCode();
             send(msg);
             AC.Messages.get(i).IsSent = true;
+         //   TryRecieveResponsesFromAgents();
         }
     }
 
