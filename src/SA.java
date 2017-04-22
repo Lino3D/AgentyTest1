@@ -42,7 +42,8 @@ public class SA extends BaseAgent {
 
     private ACLMessage[] createMessages() {
         ArrayList<ACLMessage> messages = new ArrayList<ACLMessage>();
-        for (int i = 0; i < NumberOfMessages; i++) {
+        for (int i = 0; i < NumberOfMessages; i++)
+        {
 
             ACLMessage msg;
 
@@ -61,6 +62,9 @@ public class SA extends BaseAgent {
         }
         return messages.toArray(new ACLMessage[messages.size()]);
     }
+
+
+
 
     private ACLMessage addAllAdresses(ACLMessage msg, AgentCommunication... adresses) {
         for (AgentCommunication address : adresses) {
