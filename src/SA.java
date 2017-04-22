@@ -91,6 +91,12 @@ public class SA extends BaseAgent {
                 SendSingleMessageToAgents(i);
                 TryRecieveResponsesFromAgents();
             }
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            TryRecieveResponsesFromAgents();
             IsDirty = false;
             for (int i = 0; i < AgentsToCommunicate.size(); i++) {
                 if (AgentsToCommunicate.get(i).MessagesReceived < NumberOfMessages)
@@ -99,6 +105,7 @@ public class SA extends BaseAgent {
             if (IsDirty == false)
                 break;
         }
+        int abc = 2;
     }
 
 
