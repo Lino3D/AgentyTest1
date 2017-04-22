@@ -8,6 +8,7 @@ public class AgentCommunication {
     Address Address;
     int MessagesSend = 0;
     int MessagesReceived = 0;
+    Boolean WasDealtWith = false;
     List<JadeMessage> Messages;
 
     public AgentCommunication(Address address, int NumberOfMessages) {

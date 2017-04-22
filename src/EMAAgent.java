@@ -29,14 +29,14 @@ public class EMAAgent extends Agent {
         Addresses = new ArrayList<>();
 
         // First must be a Master address
-        Addresses.add(new Address("http://10.0.0.201:7778/acc", "Master@192.168.56.1:1099/JADE"));
+        Addresses.add(new Address("http://10.0.0.201:7778/acc", "Master@10.0.0.201:1099/JADE"));
         // The rest belongs to the receivers
-        Addresses.add(new Address("http://10.0.0.201:7778/acc", "MichalMCA@192.168.56.1:1099/JADE"));
+        Addresses.add(new Address("http://10.0.0.201:7778/acc", "MichalMCA@10.0.0.201:1099/JADE"));
         Addresses.add(new Address("http://10.0.2.230:7778/acc", "OknoRec@10.0.2.230:1099/JADE"));
         //ddresses.add(new Address("http://192.168.56.1:7778/acc", "MichalSA@192.168.56.1:1099/JADE"));
 
         SpammerAddresses = new ArrayList<>();
-        SpammerAddresses.add(new Address("http://10.0.0.201:7778/acc", "MichalSA@192.168.56.1:1099/JADE"));
+        SpammerAddresses.add(new Address("http://10.0.0.201:7778/acc", "MichalSA@10.0.0.201:1099/JADE"));
         SpammerAddresses.add(new Address("http://10.0.2.230:7778/acc", "OknoSpam@10.0.2.230:1099/JADE"));
         //SpammerAddresses.add(new Address("http://192.168.90.100:7778/acc", "SADell@192.168.90.100:1099/JADE"));
 
