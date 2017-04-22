@@ -198,6 +198,10 @@ public class SA extends BaseAgent {
         msg.setContent(AgentsToCommunicate.get((0)).Messages.get(i).Message + " " + i);
         msg.setLanguage("English");
         msg.setOntology("Weather-Forecast");
+        if (AmIASpecialAgent && TestModePart2)
+            msg = new ACLMessage(ACLMessage.CFP);
+        else
+            msg = new ACLMessage(ACLMessage.REQUEST);
         allMessages.add(msg);
     }
     for(ACLMessage m : allMessages)
