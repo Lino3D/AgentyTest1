@@ -129,7 +129,7 @@ public class SA extends BaseAgent {
     }
 
     private int FindSenderIndex(ACLMessage msg) {
-        String SenderString = msg.getSender().toString();
+        String SenderString = msg.getSender().getName().toString();
         for (int i = 0; i < AgentsToCommunicate.size(); i++) {
             if (AgentsToCommunicate.get(i).Address.ComputerAdress.equals(SenderString))
                 return i;
