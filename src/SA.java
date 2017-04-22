@@ -121,7 +121,7 @@ public class SA extends BaseAgent {
     private void sendMessages() {
         for (int i = 0; i < NumberOfMessages; i++) {
             SendSingleMessageToAgents(i);
-            TryRecieveResponsesFromAgents();
+        //    TryRecieveResponsesFromAgents();
         }
         int responses = 0;
 
@@ -182,7 +182,6 @@ public class SA extends BaseAgent {
             msg.hashCode();
             send(msg);
             AC.Messages.get(i).IsSent = true;
-         //   TryRecieveResponsesFromAgents();
         }
     }
 

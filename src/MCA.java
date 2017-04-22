@@ -75,7 +75,7 @@ public class MCA extends BaseAgent {
                     else
                     {
                         EndTimer = System.currentTimeMillis();
-                        if( EndTimer - StartTimer > 3000 ) {
+                        if( EndTimer - StartTimer > 10000 ) {
                             addBehaviour(SendSuccessReport);
                             removeBehaviour(mainBehaviour);
                         }
@@ -104,7 +104,7 @@ public class MCA extends BaseAgent {
         AgentCommunication agent = Senders.get(SenderIndex);
         if (!agent.Messages.get(NumberInt).WasReceived) {
             counter++;
-            System.out.println(number);
+         //   System.out.println(number);
 
             agent.Messages.get(NumberInt).WasReceived = true;
             agent.MessagesSend++;
@@ -112,7 +112,7 @@ public class MCA extends BaseAgent {
                 System.out.println(msg.getSender().getName() + ": Otrzymałem wszystkie wiadomości od: " + msg.getSender().toString());
             }
         }
-        SendConfirmationResponse(NumberInt, msg);
+      //  SendConfirmationResponse(NumberInt, msg);
     }
 
     private void SendConfirmationResponse(int number, ACLMessage msg) {
