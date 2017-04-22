@@ -46,27 +46,27 @@ public class SA extends BaseAgent {
         };
     }
 
-    private ACLMessage[] createMessages() {
-        ArrayList<ACLMessage> messages = new ArrayList<ACLMessage>();
-        for (int i = 0; i < NumberOfMessages; i++) {
-
-            ACLMessage msg;
-
-            if (AmIASpecialAgent && TestModePart2)
-                msg = new ACLMessage(ACLMessage.CFP);
-            else
-                msg = new ACLMessage(ACLMessage.REQUEST);
-
-            msg = addAllAdresses(msg, AgentsToCommunicate.toArray(new AgentCommunication[AgentsToCommunicate.size()]));
-
-            msg.setLanguage("English");
-            msg.setOntology("Weather-Forecast");
-            msg.setContent(createRandomString(SizeOfMessage) + " " + i);
-            msg.hashCode();
-            messages.add(msg);
-        }
-        return messages.toArray(new ACLMessage[messages.size()]);
-    }
+//    private ACLMessage[] createMessages() {
+//        ArrayList<ACLMessage> messages = new ArrayList<ACLMessage>();
+//        for (int i = 0; i < NumberOfMessages; i++) {
+//
+//            ACLMessage msg;
+//
+//            if (AmIASpecialAgent && TestModePart2)
+//                msg = new ACLMessage(ACLMessage.CFP);
+//            else
+//                msg = new ACLMessage(ACLMessage.REQUEST);
+//
+//            msg = addAllAdresses(msg, AgentsToCommunicate.toArray(new AgentCommunication[AgentsToCommunicate.size()]));
+//
+//            msg.setLanguage("English");
+//            msg.setOntology("Weather-Forecast");
+//            msg.setContent(createRandomString(SizeOfMessage) + " " + i);
+//            msg.hashCode();
+//            messages.add(msg);
+//        }
+//        return messages.toArray(new ACLMessage[messages.size()]);
+//    }
 
 
     private void createJadeMessages() {
