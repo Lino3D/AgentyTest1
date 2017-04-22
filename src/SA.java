@@ -86,30 +86,24 @@ public class SA extends BaseAgent {
     private void sendMessages()
     {
 
-        for(AgentCommunication AC: AgentsToCommunicate)
-        {
-            ArrayList<ACLMessage> messages = new ArrayList<ACLMessage>(NumberOfMessages);
+
             for (int i = 0; i < NumberOfMessages; i++)
             {
-                ACLMessage msg;
-                if (AmIASpecialAgent && TestModePart2)
-                    msg = new ACLMessage(ACLMessage.CFP);
-                else
-                    msg = new ACLMessage(ACLMessage.REQUEST);
-                msg.setLanguage("English");
-                msg.setOntology("Weather-Forecast");
-                msg.setContent(AC.Messages.get(i).Message + " " + AC.Messages.get(i).Id);
-                msg.addReceiver(AC.Address.Receiver);
-                msg.hashCode();
-                messages.add(msg);
+                for (AgentCommunication AC : AgentsToCommunicate) {
+                    ACLMessage msg;
+                    if (AmIASpecialAgent && TestModePart2)
+                        msg = new ACLMessage(ACLMessage.CFP);
+                    else
+                        msg = new ACLMessage(ACLMessage.REQUEST);
+                    msg.setLanguage("English");
+                    msg.setOntology("Weather-Forecast");
+                    msg.setContent(AC.Messages.get(i).Message + " " + AC.Messages.get(i).Id);
+                    msg.addReceiver(AC.Address.Receiver);
+                    msg.hashCode();
+                    send(msg);
+                    AC.Messages.get(i).IsSent = true;
+                }
             }
-            for(int i=0; i<NumberOfMessages; i++)
-            {
-                send(messages.get(i));
-                AC.Messages.get(i).IsSent = true;
-            }
-        }
-
     }
 
 
