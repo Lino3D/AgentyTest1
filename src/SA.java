@@ -1,4 +1,5 @@
 import jade.core.AID;
+import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
@@ -33,10 +34,11 @@ public class SA extends BaseAgent {
         super.setup();
         mainBehaviour = new OneShotBehaviour(this) {
             public void action() {
-                ACLMessage[] messages = createMessages();
-                for (ACLMessage message : messages) {
-                    send(message);
-                }
+//                ACLMessage[] messages = createMessages();
+//                for (ACLMessage message : messages) {
+//                    send(message);
+//                }
+                sendMessages();
             }
         };
     }
@@ -67,8 +69,50 @@ public class SA extends BaseAgent {
 
     private void createJadeMessages(){
 
+        ArrayList<String> messagesContents = new ArrayList<String>(NumberOfMessages);
+        for(String m : messagesContents)
+        {
+            m = createRandomString(SizeOfMessage);
+        }
+
+        ArrayList<ACLMessage> messages = new ArrayList<ACLMessage>(SizeOfMessage);
+        for(AgentCommunication  AC : AgentsToCommunicate)
+        {
+            for(int i=0; i<SizeOfMessage; i++)
+                AC.Messages.add(new JadeMessage(i, messagesContents.get(i)));
+        }
 
     }
+    private void sendMessages()
+    {
+
+        for(AgentCommunication AC: AgentsToCommunicate)
+        {
+            ArrayList<ACLMessage> messages = new ArrayList<ACLMessage>(NumberOfMessages);
+            for (int i = 0; i < NumberOfMessages; i++)
+            {
+                ACLMessage msg;
+                if (AmIASpecialAgent && TestModePart2)
+                    msg = new ACLMessage(ACLMessage.CFP);
+                else
+                    msg = new ACLMessage(ACLMessage.REQUEST);
+                msg.setLanguage("English");
+                msg.setOntology("Weather-Forecast");
+                msg.setContent(AC.Messages.get(i).Message + " " + AC.Messages.get(i).Id);
+                msg.addReceiver(AC.Address.Receiver);
+                msg.hashCode();
+                messages.add(msg);
+            }
+            for(int i=0; i<NumberOfMessages; i++)
+            {
+                send(messages.get(i));
+                AC.Messages.get(i).IsSent = true;
+            }
+        }
+
+    }
+
+
 
 
     private ACLMessage addAllAdresses(ACLMessage msg, AgentCommunication... adresses) {
