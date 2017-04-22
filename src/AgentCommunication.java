@@ -8,7 +8,7 @@ public class AgentCommunication {
     Address Address;
     int MessagesSend = 0;
     int MessagesReceived = 0;
-    List<String> Messages;
+    List<JadeMessage> Messages;
 
     public AgentCommunication(Address address) {
         Address = address;

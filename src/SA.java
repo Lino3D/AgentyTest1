@@ -4,6 +4,7 @@ import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -64,6 +65,10 @@ public class SA extends BaseAgent {
     }
 
 
+    private void createJadeMessages(){
+
+
+    }
 
 
     private ACLMessage addAllAdresses(ACLMessage msg, AgentCommunication... adresses) {
