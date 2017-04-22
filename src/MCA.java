@@ -82,6 +82,8 @@ public class MCA extends BaseAgent {
         AgentCommunication agent = Senders.get(SenderIndex);
         if (!agent.Messages.get(NumberInt).WasReceived) {
             counter++;
+            System.out.println(number);
+
             agent.Messages.get(NumberInt).WasReceived = true;
             agent.MessagesSend++;
             if (agent.MessagesSend == NumberOfMessages) {

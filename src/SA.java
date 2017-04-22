@@ -86,6 +86,7 @@ public class SA extends BaseAgent {
     }
     private void sendMessages()
     {
+            createJadeMessages();
             for (int i = 0; i < NumberOfMessages; i++)
             {
                 for (AgentCommunication AC : AgentsToCommunicate) {
