@@ -103,7 +103,7 @@ public class MCA extends BaseAgent {
     private int FindSenderIndex(ACLMessage msg) {
         String SenderString = msg.getSender().toString();
         for (int i = 0; i < AgentsToCommunicate.size(); i++) {
-            if (AgentsToCommunicate.get(i).Address.AgentAdress == SenderString)
+            if (AgentsToCommunicate.get(i).Address.AgentAdress.equals( SenderString))
                 return i;
         }
         AddSender(msg);

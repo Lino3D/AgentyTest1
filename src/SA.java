@@ -93,10 +93,10 @@ public class SA extends BaseAgent {
             }
             IsDirty = false;
             for (int i = 0; i < AgentsToCommunicate.size(); i++) {
-                if( AgentsToCommunicate.get(i).MessagesReceived < NumberOfMessages)
+                if (AgentsToCommunicate.get(i).MessagesReceived < NumberOfMessages)
                     IsDirty = true;
             }
-            if(IsDirty == false)
+            if (IsDirty == false)
                 break;
         }
     }
@@ -118,6 +118,9 @@ public class SA extends BaseAgent {
     private void ParseResponse(ACLMessage msg) {
         String Sender = msg.getSender().toString();
         int SenderIndex = FindSenderIndex(msg);
+        if (SenderIndex == -1) {
+            String domek = "";
+        }
         String number = msg.getContent().replaceAll("\\D+", "");
         int NumberInt = Integer.parseInt(number);
         AgentCommunication agent = AgentsToCommunicate.get(SenderIndex);
@@ -128,7 +131,7 @@ public class SA extends BaseAgent {
     private int FindSenderIndex(ACLMessage msg) {
         String SenderString = msg.getSender().toString();
         for (int i = 0; i < AgentsToCommunicate.size(); i++) {
-            if (AgentsToCommunicate.get(i).Address.AgentAdress == SenderString)
+            if (AgentsToCommunicate.get(i).Address.ComputerAdress.equals(SenderString))
                 return i;
         }
         return -1;
