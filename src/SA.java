@@ -127,7 +127,7 @@ public class SA extends BaseAgent {
 
         for( int i = 0; i < AgentsToCommunicate.size();i++)
             responses += AgentsToCommunicate.get(i).MessagesReceived;
-        System.out.println("Dostałem responsów: " + responses);
+      // System.out.println("Dostałem responsów: " + responses);
     }
 
 

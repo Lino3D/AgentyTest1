@@ -13,6 +13,7 @@ import java.util.List;
  * Created by Mike on 18.04.2017.
  */
 public class BaseAgent extends Agent {
+    int counter = 0;
     boolean AmIASpecialAgent = false;
     boolean TestModePart2 = false;
     Behaviour SendSuccessReport;
@@ -59,7 +60,7 @@ public class BaseAgent extends Agent {
                 ACLMessage message = new ACLMessage(ACLMessage.INFORM);
                 message.setLanguage("English");
                 message.setOntology("Test-Ending");
-                message.setContent("Job done!");
+                message.setContent(new Integer(counter).toString());
                 AID receiver = new AID(MasterAgentAddress.ComputerAdress,AID.ISGUID);
                 receiver.addAddresses(MasterAgentAddress.AgentAdress);
                 message.addReceiver(receiver);

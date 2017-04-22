@@ -22,12 +22,13 @@ public class EMAAgent extends Agent {
     int ReceivedSuccessReports = 0;
     int SizeOfMessage = 1000;
     int NumberOfMessages = 3000;
+    List<String> ReceivedMessages;
     Behaviour StartExperiment;
     Behaviour ReceiveEndReports;
 
     protected void setup() {
         Addresses = new ArrayList<>();
-
+        ReceivedMessages = new ArrayList<>();
         // First must be a Master address
         Addresses.add(new Address("http://10.0.0.201:7778/acc", "Master@10.0.0.201:1099/JADE"));
         // The rest belongs to the receivers
@@ -76,6 +77,7 @@ public class EMAAgent extends Agent {
                 if (msg != null) {
                     if( msg.getPerformative() == ACLMessage.INFORM)
                     {
+                        ReceivedMessages.add(msg.getSender().getName()+ ": "+msg.getContent());
                         ReceivedSuccessReports++;
                         if( ReceivedSuccessReports == Addresses.size() -1 )
                         {
@@ -88,6 +90,9 @@ public class EMAAgent extends Agent {
                             System.out.println("Ilosc agentów: " + (Addresses.size() -1));
                             System.out.println("Ilosc wiadomości do wysłania: " + NumberOfMessages);
                             System.out.println("Wielkość wiadomości: " + SizeOfMessage);
+                            for( int j =0 ;j < ReceivedMessages.size(); j++)
+                                System.out.println(ReceivedMessages.get(j));
+
                             System.out.println("Czas trwania symulacji: " + estimatedTime);
                             System.out.println("#################################################");
                         }

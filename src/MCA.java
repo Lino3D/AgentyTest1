@@ -15,7 +15,6 @@ public class MCA extends BaseAgent {
     List<AgentCommunication> Senders;
     int Maxcount = 0;
     int ReceivedFromSpecial = 0;
-    int counter = 0;
     boolean BeganCounting = false;
     long StartTimer;
     long EndTimer;
@@ -75,7 +74,7 @@ public class MCA extends BaseAgent {
                     else
                     {
                         EndTimer = System.currentTimeMillis();
-                        if( EndTimer - StartTimer > 10000 ) {
+                        if( EndTimer - StartTimer > 5000 ) {
                             addBehaviour(SendSuccessReport);
                             removeBehaviour(mainBehaviour);
                         }
